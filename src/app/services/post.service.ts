@@ -6,7 +6,7 @@ import {DataService} from './data.service';
 @Injectable()
 export class PostService extends DataService{
   constructor(http: Http) {
-    super('https://jsonplaceholder.typicode.com/posts', http);
+    super('https://heroku-greeting-sender.herokuapp.com', http);
   }
 
 

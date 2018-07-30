@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
-import 'rxjs/add/operator/map';
+import { Http  } from '@angular/http';
+import { Headers  } from '@angular/http';
 
 
 @Injectable()
@@ -9,20 +9,25 @@ export class DataService {
   constructor(private url: string, private http: Http) { }
 
   getAll() {
-    return this.http.get(this.url);
+    return this.http.get(this.url + '/getAllDetails');
   }
 
   create(resource) {
-    return this.http.post(this.url, JSON.stringify(resource));
+    const listDetails: any[] =[resource];
+    const headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    return this.http.post(this.url + '/addGreetingDetails', JSON.stringify(listDetails), { headers: headers});
   }
 
-  update(resource){
-    return this.http.post(this.url + '/' + resource.id, JSON.stringify({isRead: true}));
+  update(resource) {
+    const headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    return this.http.put(this.url + '/updateDetails', JSON.stringify(resource),{ headers: headers});
   }
 
-  delete(id){
+  delete(id) {
 
-    return this.http.delete(this.url + '/' + id);
+    return this.http.delete(this.url + '/deleteDetails/' + id);
   }
 }
 

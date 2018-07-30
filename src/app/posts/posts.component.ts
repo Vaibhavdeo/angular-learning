@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit , Input} from '@angular/core';
 import {PostService} from '../services/post.service';
 import {Observable} from 'rxjs/Observable';
 import {AppError} from '../common/app-error';
@@ -23,9 +23,7 @@ export class PostsComponent  implements OnInit{
         console.log(error);
       });
     }
-  createPosts(input: HTMLInputElement){
-    let post = { title: input.value };
-    input.value='';
+  createPosts(post){
   this.service.create(post).subscribe(response => {
     post['id']= response.json().id;
     this.posts.splice(0,0,post)
@@ -37,19 +35,47 @@ export class PostsComponent  implements OnInit{
   }
 
   updatePost(post){
-    this.service.update(post).subscribe(response => {
-      console.log(response.json());
-    }, error => {
-      alert('An Unexpected error has occurs');
-      console.log(error);
-    });
+    //if ( post.gId == "" ) {
+      this.service.create(post).subscribe(response => {
+        post['id']= response.json().id;
+        this.posts.splice(0,0,post)
+        console.log(response.json());
+      }, error => {
+        alert('An Unexpected error has occurs');
+        console.log(error);
+      });
+
+    //else {
+      this.service.update(post).subscribe(response => {
+        console.log(response.json());
+      }, error => {
+        alert('An Unexpected error has occurs');
+        console.log(error);
+      });
+
     //this.http.post(this.url,JSON.stringify(post));
+  }
+
+  editMe (editValue) {
+    console.log(editValue);
+  };
+
+  addRow () {
+    this.posts.push({
+      gId: '',
+      mailId: '',
+      name: '',
+      subject: '',
+      date: ''
+    });
   }
 
   deletePost(post){
     let index = this.posts.indexOf(post);
     this.posts.splice(index,1);
-    this.service.delete(post.id).subscribe(null,
+    this.service.delete(post.gId).subscribe(response =>{
+      console.log('Responce' , response);
+      },
       error => {
       if ( error.status === 404){
         this.posts.splice(index,0,post);
