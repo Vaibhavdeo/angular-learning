@@ -13,7 +13,7 @@ export class DataService {
   }
 
   create(resource) {
-    const listDetails: any[] =[resource];
+    const listDetails: any[] = [resource];
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
     return this.http.post(this.url + '/addGreetingDetails', JSON.stringify(listDetails), { headers: headers});
@@ -29,5 +29,6 @@ export class DataService {
 
     return this.http.delete(this.url + '/deleteDetails/' + id);
   }
+
 }
 

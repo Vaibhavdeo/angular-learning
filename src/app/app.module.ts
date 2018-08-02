@@ -10,6 +10,8 @@ import { GithubFollowersService } from './services/github-followers.service';
 import { NavbarComponent } from './navbar/navbar.component';
 import {RouterModule} from '@angular/router';
 import {FormsModule} from '@angular/forms';
+import { LoginComponent } from './login/login.component';
+import {AuthService} from './services/auth.service';
 
 
 @NgModule({
@@ -17,7 +19,8 @@ import {FormsModule} from '@angular/forms';
     AppComponent,
     PostsComponent,
     GithubFollowersComponent,
-    NavbarComponent
+    NavbarComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -25,12 +28,12 @@ import {FormsModule} from '@angular/forms';
     FormsModule,
     RouterModule.forRoot([
       {
-        path: 'post',
-        component: PostsComponent
+        path: 'login',
+        component: LoginComponent
       },
       {
-        path: 'followers',
-        component: GithubFollowersComponent
+        path: 'navbar',
+        component: NavbarComponent
       },
       {
         path: 'details',
@@ -40,7 +43,8 @@ import {FormsModule} from '@angular/forms';
   ],
   providers: [
     PostService,
-    GithubFollowersService
+    GithubFollowersService,
+    AuthService
   ],
   bootstrap: [AppComponent]
 })

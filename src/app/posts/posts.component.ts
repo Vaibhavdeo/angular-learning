@@ -35,17 +35,6 @@ export class PostsComponent  implements OnInit{
   }
 
   updatePost(post){
-    //if ( post.gId == "" ) {
-      this.service.create(post).subscribe(response => {
-        post['id']= response.json().id;
-        this.posts.splice(0,0,post)
-        console.log(response.json());
-      }, error => {
-        alert('An Unexpected error has occurs');
-        console.log(error);
-      });
-
-    //else {
       this.service.update(post).subscribe(response => {
         console.log(response.json());
       }, error => {
